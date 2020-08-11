@@ -21,12 +21,13 @@ func main() {
 	var setCmd = &cobra.Command{
 		Use:   "set",
 		Short: "Store a value in the keyring",
-		Args:  cobra.MinimumNArgs(2),
+		Args:  cobra.MinimumNArgs(3),
 		Run: func(cmd *cobra.Command, args []string) {
-			user := args[0]
-			password := args[1]
+			app := args[0]
+			user := args[1]
+			password := args[2]
 			// set password
-			err := keyring.Set("cli", user, password)
+			err := keyring.Set(app, user, password)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -35,11 +36,12 @@ func main() {
 	var getCmd = &cobra.Command{
 		Use:   "get",
 		Short: "Retrieve a value in the keyring",
-		Args:  cobra.MinimumNArgs(1),
+		Args:  cobra.MinimumNArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {
-			user := args[0]
+			app := args[0]
+			user := args[1]
 			// set password
-			secret, err := keyring.Get("cli", user)
+			secret, err := keyring.Get(app, user)
 			if err != nil {
 				log.Fatal(err)
 			}
